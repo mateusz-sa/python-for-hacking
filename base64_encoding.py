@@ -6,7 +6,8 @@ def encode_pass(password):
     return encoded_bytes
 
 def decode_pass(encoded_password):
-    decoded_password = base64.b64decode(encoded_password)
+    decoded_bytes = base64.b64decode(encoded_password)
+    decoded_password = decoded_bytes.decode()
     return decoded_password
 
 user_password = input("Enter your password: ")
