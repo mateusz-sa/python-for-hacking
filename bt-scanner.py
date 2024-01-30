@@ -8,9 +8,10 @@ def scan_bluetooth_devices():
         # Discover Bluetooth devices with names and classes.
         discovered_devices = bluetooth.discover_devices(lookup_names=True, lookup_class=True)
         # Display information about the scanning process.
-        print('[!] Scanning for active devices...')
+        print('\n[!] Scanning for active devices...')
         print(f"[!] Found {len(discovered_devices)} Devices\n")
         # Iterate through discovered devices and print their details.
+
         for addr, name, device_class in discovered_devices:
             print(colored(f'[+] Name: {name}','green'))
             print(colored(f'[+] Address: {addr}','green'))
