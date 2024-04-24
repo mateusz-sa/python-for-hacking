@@ -20,7 +20,7 @@ def going_for_raw(repo5):
     raw.click()
     html = driver.page_source
     html = f"{html}"
-    # print(html)
+    # print(html)  
     if "pass" in html:
         print(f"\n pass found inside {repo5}")
         # this = re.findall(r"([^.]password[^.]*\.)",html)
@@ -67,21 +67,3 @@ for l in links:
 driver.close()
 driver.quit()
 
-
-
-
-
-
-
-
-
-
-
-# elif "js" in a.text:
-# print("js")
-# repo5 = f"{repo3}/blob/main/{a.text}"
-# going_for_raw(repo5)
-# elif "json" in a.text:
-# print("json")
-# elif "php" in a.text:
-# print("php")
