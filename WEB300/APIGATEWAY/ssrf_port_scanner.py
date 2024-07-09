@@ -9,9 +9,9 @@ parser.add_argument('--timeout', help='timeout', required=False, default=3)
 parser.add_argument('-s','--ssrf', help='ssrf target', required=True)
 parser.add_argument('-v','--verbose', help='enable verbose mode', action="store_true", default=False)
 
-args = parser.parse_args()
+args = parser.parse_args() 
 
-ports = ['22','80','443', '1433', '1521', '3306', '3389', '5000', '5432', '5900', '6379','8000','8001','8055','8080','8443','9000']
+ports = ['22','80','445', '1433', '1521', '3306', '3389', '5000', '5432', '5900', '6379','8000','8001','8055','8080','8443','9000']
 timeout = float(args.timeout)
 
 for p in ports:
