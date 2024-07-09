@@ -41,4 +41,4 @@ with open(args.wordlist, "r") as f:
                     word=word.strip(), action=action, get=r_get, post=r_post, put=r_put, patch=r_patch))
 
 print('\r', end='')
-print("Wordlist complete. Goodbye.")
+print("Wordlist complete. Goodbye !!!.")
