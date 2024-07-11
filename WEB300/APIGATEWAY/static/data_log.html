@@ -1,0 +1,49 @@
+<html>
+<head>
+<script>
+
+function createService() {
+    fetch("http://172.16.16.2:8001/services", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({"name":"datalog", "url": "http://127.0.0.1/"})
+    }).then(function (route) {
+      createRoute();
+    });
+}
+
+function createRoute() {
+    fetch("http://172.16.16.2:8001/services/datalog/routes", { 
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({"paths": ["/datalog"]})
+    }).then(function (plugin) {
+      createPlugins();
+    });  
+}
+
+function createPlugins() {
+    // Dodanie pluginu http-log
+    fetch("http://172.16.16.2:8001/services/datalog/plugins", { 
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "name": "http-log",
+        "config": {
+          "http_endpoint": "http://192.168.45.224/logs",
+          "method": "POST",
+          "content_type": "application/json"
+        }
+      })
+    }).then(function (response) {
+      console.log("HTTP log plugin added successfully");
+      fetch("http://192.168.45.224/callback?setupComplete");
+    });
+}
+
+</script>
+</head>
+<body onload='createService()'>
+<div></div>
+</body>
+</html>

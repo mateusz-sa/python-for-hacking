@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, send_from_directory
 from urllib.parse import unquote
 
 app = Flask(__name__, static_url_path='/static')
@@ -16,13 +16,6 @@ def error():
     decoded_error = unquote(error)
     print(f"Received error: {decoded_error}")
     return "Error received", 200
-
-@app.route('/logs', methods=['POST'])
-def receive_logs():
-    log_data = request.json
-    print(f"Received log data: {log_data}")
-    # Przetworzenie otrzymanych danych logów, np. zapis do bazy danych, dalsza analiza, itp.
-    return jsonify({"status": "Log received"}), 200
 
 @app.route('/<path:path>', methods=['GET'])
 def static_files(path):
