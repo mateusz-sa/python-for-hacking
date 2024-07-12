@@ -1,0 +1,11 @@
+configuration:
+  dependencies:
+    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.8"
+
+flows:
+  default:
+  - log: "Hello, ${name}"
+
+configuration:
+  arguments:
+    name: ${crypto.decryptString("vyblrnt+hP8GNVOfSl9WXgGcQZceBhOmcyhQ0alyX6Rs5ozQbEvChU9K7FWSe7cf")}
